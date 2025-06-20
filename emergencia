@@ -1,0 +1,52 @@
+<!-- perfil.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Informações de Emergência</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #d32f2f;
+    }
+    p {
+      font-size: 16px;
+    }
+    .alert {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🚑 Informações de Emergência</h2>
+    <p><strong>Nome:</strong> <span id="nome"></span></p>
+    <p><strong>Tipo Sanguíneo:</strong> <span id="sangue"></span></p>
+    <p><strong>Condições Médicas:</strong> <span id="condicoes"></span></p>
+    <p><strong>Medicamentos:</strong> <span id="medicamentos"></span></p>
+    <p class="alert"><strong>Contato de Emergência:</strong> <span id="contato"></span></p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('nome').textContent = urlParams.get('nome') || 'Não informado';
+    document.getElementById('sangue').textContent = urlParams.get('sangue') || 'Não informado';
+    document.getElementById('condicoes').textContent = urlParams.get('cond') || 'Nenhuma';
+    document.getElementById('medicamentos').textContent = urlParams.get('meds') || 'Nenhum';
+    document.getElementById('contato').textContent = urlParams.get('contato') || 'Não informado';
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Emergência QR</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, textarea { display: block; margin: 10px 0; width: 100%; }
+    #qrcode { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Informações de Emergência</h1>
+  <form id="emergencyForm">
+    <input type="text" placeholder="Nome Completo" id="nome" required>
+    <input type="text" placeholder="Tipo Sanguíneo (ex: O+)" id="sangue">
+    <textarea placeholder="Alergias / Condições Médicas" id="condicoes"></textarea>
+    <textarea placeholder="Medicamentos de Uso Contínuo" id="medicamentos"></textarea>
+    <input type="text" placeholder="Contato de Emergência (Nome e Telefone)" id="contato">
+    <button type="submit">Gerar QR Code</button>
+  </form>
+
+  <div id="qrcode"></div>
+
+  <script>
+    const form = document.getElementById('emergencyForm');
+    const qrDiv = document.getElementById('qrcode');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const sangue = document.getElementById('sangue').value;
+      const condicoes = document.getElementById('condicoes').value;
+      const medicamentos = document.getElementById('medicamentos').value;
+      const contato = document.getElementById('contato').value;
+
+      const base = window.location.origin + '/qr-emergencia/perfil.html';
+      const url = `${base}?nome=${encodeURIComponent(nome)}&sangue=${sangue}&cond=${encodeURIComponent(condicoes)}&meds=${encodeURIComponent(medicamentos)}&contato=${encodeURIComponent(contato)}`;
+
+      qrDiv.innerHTML = "";
+      QRCode.toCanvas(document.createElement('canvas'), url, function (error, canvas) {
+        if (error) console.error(error);
+        qrDiv.appendChild(canvas);
+      });
+    });
+  </script>
+</body>
+</html>
